@@ -1,6 +1,5 @@
 package com.example.basicboardv1.user.service;
 
-import com.example.basicboardv1.academy.domain.Academy;
 import com.example.basicboardv1.academy.repository.AcademyRepository;
 import com.example.basicboardv1.common.exception.CustomException;
 import com.example.basicboardv1.common.exception.ErrorCode;
@@ -12,9 +11,6 @@ import com.example.basicboardv1.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -39,14 +35,6 @@ public class UserService {
         user.setGender(request.getGender());
         user.setAddress(request.getAddress());
         user.setRole(request.getRole());
-        
-        // Academy 설정
-        if (request.getAcademyIds() != null && !request.getAcademyIds().isEmpty()) {
-            List<Academy> academies = academyRepository.findAllById(request.getAcademyIds());
-            user.setAcademies(academies);
-        } else {
-            user.setAcademies(new ArrayList<>());
-        }
         
         Users savedUser = userRepository.save(user);
         return savedUser.getId();

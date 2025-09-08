@@ -1,10 +1,6 @@
 package com.example.basicboardv1.user.domain;
 
-import com.example.basicboardv1.academy.domain.Academy;
 import jakarta.persistence.*;
-
-import java.time.LocalDateTime;
-import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,12 +9,16 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import java.time.LocalDateTime;
+
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @EntityListeners(AuditingEntityListener.class)
+@Inheritance(strategy = InheritanceType.JOINED)
+@Table(name = "users")
 // spring security 에 이미 User 라는 클래스가 존재해서 구븐을 위해 Users 로 명명
 public class Users {
     @Id
@@ -44,13 +44,6 @@ public class Users {
     @Column(name = "role")
     private Role role;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(
-        name = "user_academy",
-        joinColumns = @JoinColumn(name = "user_id"),
-        inverseJoinColumns = @JoinColumn(name = "academy_id")
-    )
-    private List<Academy> academies;
 
     @CreatedDate
     @Column(name = "created_at", updatable = false)
