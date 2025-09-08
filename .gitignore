@@ -35,3 +35,7 @@ out/
 
 ### VS Code ###
 .vscode/
+
+#CLAUDE#
+/CLAUDE.md
+/.claude/settings.local.json
