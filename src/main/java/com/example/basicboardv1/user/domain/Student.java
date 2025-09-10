@@ -1,6 +1,6 @@
 package com.example.basicboardv1.user.domain;
 
-import com.example.basicboardv1.academy.domain.Academy;
+import com.example.basicboardv1.academy.domain.StudentAcademy;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -31,13 +31,8 @@ public class Student extends Users {
     @JoinColumn(name = "parent_id")
     private Parent parent; // 학부모 정보 (다대일 관계)
     
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(
-        name = "student_academy",
-        joinColumns = @JoinColumn(name = "student_id"),
-        inverseJoinColumns = @JoinColumn(name = "academy_id")
-    )
-    private List<Academy> academies; // 소속 학원 목록 (다대다 관계)
+    @OneToMany(mappedBy = "student", fetch = FetchType.LAZY)
+    private List<StudentAcademy> studentAcademies; // 학생-학원 관계 목록
     
     // TODO: assignedRoutes 배정된 노선 정보 (다대다 관계) - Route 엔티티 생성 후 추가 예정
 

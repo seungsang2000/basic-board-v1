@@ -1,6 +1,6 @@
 package com.example.basicboardv1.user.domain;
 
-import com.example.basicboardv1.academy.domain.Academy;
+import com.example.basicboardv1.academy.domain.ManagerAcademy;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -20,13 +20,8 @@ public class AcademyManager extends Users {
     @Column(name = "position")
     private String position; // 직책 (원장, 부원장, 행정직원 등)
     
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(
-        name = "manager_academy",
-        joinColumns = @JoinColumn(name = "manager_id"),
-        inverseJoinColumns = @JoinColumn(name = "academy_id")
-    )
-    private List<Academy> academies; // 관리하는 학원 목록 (다대다 관계)
+    @OneToMany(mappedBy = "manager", fetch = FetchType.LAZY)
+    private List<ManagerAcademy> managerAcademies; // 관리자-학원 관계 목록
     
     @ElementCollection(fetch = FetchType.LAZY)
     @CollectionTable(name = "manager_permissions", joinColumns = @JoinColumn(name = "manager_id"))
