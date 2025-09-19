@@ -39,3 +39,10 @@ out/
 #CLAUDE#
 /CLAUDE.md
 /.claude/settings.local.json
+
+# API Keys
+application-secret.properties
+*.env
+.env.local
+.env.*.local
+/SECRET-MANAGEMENT.md
